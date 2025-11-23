@@ -93,7 +93,7 @@ public class CategoryHandler(AppDbContext context) : ICategoryHandler
        }
     }
 
-    public async Task<PagedResponse<List<Category>>> GetAllAsync(GetAllCategoriesRequest request)
+    public async Task<PagedResponse<List<Category>?>> GetAllAsync(GetAllCategoriesRequest request)
     {
         try
         {
@@ -111,11 +111,11 @@ public class CategoryHandler(AppDbContext context) : ICategoryHandler
             var count = await query
                 .CountAsync();
         
-            return new PagedResponse<List<Category>>(categories, count, request.PageNumber, request.PageSize);
+            return new PagedResponse<List<Category>?>(categories, count, request.PageNumber, request.PageSize);
         }
         catch
         {
-            return new PagedResponse<List<Category>>(null, 500, "[FP082] Não foi possível obter as categorias");
+            return new PagedResponse<List<Category>?>(null, 500, "[FP082] Não foi possível obter as categorias");
         }
     }
 }
